@@ -1,3 +1,6 @@
+using openapi_clients.Controllers;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,8 +30,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseReDoc(x => {
-        x.PathInMiddlePanel();
-        
+        x.IndexStream = () => 
+            typeof(WeatherForecastController)
+            .GetTypeInfo()
+            .Assembly
+            .GetManifestResourceStream("openapi_clients.index.html");
     });
 }
 
