@@ -2,18 +2,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(x => x.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 // Important !!!
 
 builder.Services.AddSwaggerGen(c => 
-c
-.UseOneOfForPolymorphism()
-// .UseAllOfForInheritance()
-// .UseAllOfToExtendReferenceSchemas()
+{
+    c.UseOneOfForPolymorphism();
+    c.UseAllOfForInheritance();
+    c.UseAllOfToExtendReferenceSchemas();
+    c.EnableAnnotations(
+        enableAnnotationsForInheritance: true,
+        enableAnnotationsForPolymorphism: true
+    );
+});
 
-);
 
 var app = builder.Build();
 
@@ -21,13 +26,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseReDoc(x => {
+        x.PathInMiddlePanel();
+        
+    });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
