@@ -20,6 +20,8 @@ builder.Services.AddSwaggerGen(c =>
         enableAnnotationsForInheritance: true,
         enableAnnotationsForPolymorphism: true
     );
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "openapi-clients.xml");
+    c.IncludeXmlComments(filePath);
 });
 
 
@@ -29,6 +31,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+    app.UseSwaggerUI();
     app.UseReDoc(x => {
         x.IndexStream = () => 
             typeof(WeatherForecastController)
