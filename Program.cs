@@ -3,35 +3,38 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers()
-    .AddNewtonsoftJson(x => x.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-// Important !!!
+    .AddNewtonsoftJson(x =>
+    {
+        x.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
+        x.SerializerSettings.TypeNameAssemblyFormatHandling = Newtonsoft.Json.TypeNameAssemblyFormatHandling.Simple;
+    });
 
-builder.Services.AddSwaggerGen(c => 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options => 
 {
-    c.UseOneOfForPolymorphism();
-    c.UseAllOfForInheritance();
-    c.UseAllOfToExtendReferenceSchemas();
-    c.EnableAnnotations(
-        enableAnnotationsForInheritance: true,
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "openapi-clients.xml");
+    options.IncludeXmlComments(filePath, true);
+    options.EnableAnnotations(
+        enableAnnotationsForInheritance: false,
         enableAnnotationsForPolymorphism: true
     );
-    var filePath = Path.Combine(System.AppContext.BaseDirectory, "openapi-clients.xml");
-    c.IncludeXmlComments(filePath);
+    
+    options.SchemaFilter<ExampleByConventionFilter>();
+    options.RequestBodyFilter<ExampleReferenceRequestBodyFilter>();
 });
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(x => x.IndexStream = () => 
+            typeof(WeatherForecastController)
+            .GetTypeInfo()
+            .Assembly
+            .GetManifestResourceStream("openapi_clients.index-swagger.html") );
     app.UseReDoc(x => {
         x.IndexStream = () => 
             typeof(WeatherForecastController)
@@ -44,5 +47,4 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
