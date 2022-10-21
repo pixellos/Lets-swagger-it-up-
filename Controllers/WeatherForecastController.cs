@@ -31,6 +31,9 @@ public class WeatherForecastController : ControllerBase
     [HttpPost("HeaderComplexType")]
     public IResult PostHeader([FromHeader] KnownType payload) => Ok(payload);
 
+    [HttpPost("HeaderComplexTypeRce")]
+    public IResult PostHeader(KnownTypeWithRce payload) => Ok(payload);
+
     [HttpPost("HeaderString")]
     public IResult PostHeaderString([FromHeader] string payload) => Ok(payload);
 
@@ -48,7 +51,8 @@ public class WeatherForecastController : ControllerBase
 
 public record KnownType(string SomeString);
 
-// Interfaces
+public record KnownTypeWithRce(string SomeString, object someValueThatCanBeIntegerOrString);
+
 [SwaggerDiscriminator("$type")]
 [SwaggerSubType(typeof(Dog), DiscriminatorValue = Dog.TypeConst)]
 [SwaggerSubType(typeof(Cat), DiscriminatorValue = Cat.TypeConst)]
@@ -64,7 +68,6 @@ public record Cat(string Meow) : Animal
     public const string TypeConst = $"{Animal.Namespace}.{nameof(Cat)}, openapi-clients";
 }
 
-/// <example>{type: &quot;openapi_clients.Controllers.Dog&quot;, bark: &quot;&quot;}</example>
 public record Dog(string Bark) : Animal
 {
     public const string TypeConst = $"{Animal.Namespace}.{nameof(Dog)}, openapi-clients";
