@@ -1,4 +1,5 @@
 using openapi_clients.Controllers;
+using System.IO;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,7 @@ if (app.Environment.IsDevelopment())
             typeof(WeatherForecastController)
             .GetTypeInfo()
             .Assembly
-            .GetManifestResourceStream("openapi_clients.index-swagger.html") );
+            .GetManifestResourceStream("openapi_clients.index-swagger.html"));
     app.UseReDoc(x => {
         x.IndexStream = () => 
             typeof(WeatherForecastController)
