@@ -36,13 +36,11 @@ if (app.Environment.IsDevelopment())
             .GetTypeInfo()
             .Assembly
             .GetManifestResourceStream("openapi_clients.index-swagger.html"));
-    app.UseReDoc(x => {
-        x.IndexStream = () => 
+    app.UseReDoc(x => x.IndexStream = () =>
             typeof(WeatherForecastController)
             .GetTypeInfo()
             .Assembly
-            .GetManifestResourceStream("openapi_clients.index.html");
-    });
+            .GetManifestResourceStream("openapi_clients.index.html"));
 }
 
 app.UseHttpsRedirection();
