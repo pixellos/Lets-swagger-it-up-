@@ -1,6 +1,8 @@
 using openapi_clients.Controllers;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.IO;
 using System.Reflection;
+using System.Xml.XPath;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,28 +16,43 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => 
 {
+    options.CustomOperationIds(x => x.RelativePath);
     var filePath = Path.Combine(System.AppContext.BaseDirectory, "openapi-clients.xml");
-    options.IncludeXmlComments(filePath, true);
+    options.IncludeXmlComments(() =>
+    {
+        var result = new XPathDocument(filePath);
+        options.SchemaFilter<RecordXmlCommentSchemaFilter>(result);
+        return result;
+    }, true);
     options.EnableAnnotations(
-        enableAnnotationsForInheritance: false,
+        enableAnnotationsForInheritance: true,
         enableAnnotationsForPolymorphism: true
     );
-    
-    options.SchemaFilter<ExampleByConventionFilter>();
+
+    options.SchemaFilter<PolymorphicExampleSchemaFilter>();
     options.RequestBodyFilter<ExampleReferenceRequestBodyFilter>();
 });
-
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(x => x.IndexStream = () => 
-            typeof(WeatherForecastController)
-            .GetTypeInfo()
-            .Assembly
-            .GetManifestResourceStream("openapi_clients.index-swagger.html"));
+    app.UseSwaggerUI(x =>
+    {
+        x.ShowCommonExtensions();
+        x.ShowExtensions();
+        x.DisplayOperationId();
+        x.DisplayRequestDuration();
+        x.EnableDeepLinking();
+        x.EnableFilter();
+
+        x.IndexStream = () =>
+                    typeof(WeatherForecastController)
+                    .GetTypeInfo()
+                    .Assembly
+                    .GetManifestResourceStream("openapi_clients.index-swagger.html");
+    });
     app.UseReDoc(x => x.IndexStream = () =>
             typeof(WeatherForecastController)
             .GetTypeInfo()

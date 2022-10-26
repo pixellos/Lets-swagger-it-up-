@@ -10,11 +10,8 @@ internal class ExampleReferenceRequestBodyFilter : IRequestBodyFilter
     public void Apply(OpenApiRequestBody requestBody, RequestBodyFilterContext context)
     {
         var model = context?.BodyParameterDescription?.ModelMetadata;
-
         if (model is null)
-        {
             return;
-        }
 
         foreach (var (_, c) in requestBody.Content)
         {
@@ -26,8 +23,7 @@ internal class ExampleReferenceRequestBodyFilter : IRequestBodyFilter
                     Reference = new OpenApiReference()
                     {
                         Type = ReferenceType.Schema,
-                        // TODO: Can't it be retrieved in better way?
-                        Id = model.ModelType.Name + "/examples/" + x.SubType.Name
+                        Id = x.SubType.Name + PolymorphicExampleSchemaFilter.Path
                     }
                 });
         }

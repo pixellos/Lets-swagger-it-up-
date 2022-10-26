@@ -12,21 +12,24 @@ public record KnownTypeWithRce(string SomeString, object someValueThatCanBeInteg
 [SwaggerSubType(typeof(Wolf), DiscriminatorValue = Wolf.TypeConst)]
 public abstract record Animal
 {
-    internal const string Assembly = "openapi_clients.Controllers";
+    internal const string Assembly = "openapi-clients";
     internal const string Namespace = "openapi_clients.Controllers";
 }
 
+/// <param name="Meow" example="Meow! Meow!">Some meow description</param>
 public record Cat(string Meow) : Animal
 {
-    public const string TypeConst = $"{Animal.Namespace}.{nameof(Cat)}, openapi-clients";
+    public const string TypeConst = $"{Animal.Namespace}.{nameof(Cat)}, {Animal.Assembly}";
 }
 
+/// <param name="Bark" example="Bark! Bark!">Some bark desc</param>
 public record Dog(string Bark) : Animal
 {
-    public const string TypeConst = $"{Animal.Namespace}.{nameof(Dog)}, openapi-clients";
+    public const string TypeConst = $"{Animal.Namespace}.{nameof(Dog)}, {Animal.Assembly}";
 }
 
+/// <param name="Woof" example="Woof! Woof!">Some woof desc</param>
 public record Wolf(string Woof) : Animal
 {
-    public const string TypeConst = $"{Animal.Namespace}.{nameof(Wolf)}, openapi-clients";
+    public const string TypeConst = $"{Animal.Namespace}.{nameof(Wolf)}, {Animal.Assembly}";
 }

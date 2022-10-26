@@ -26,7 +26,18 @@ public class WeatherForecastController : ControllerBase
     public IResult PostForm([FromForm] KnownType payload) => Ok(payload);
 
     [HttpPost("Inheritance")]
-    public IResult PostInheritance([FromBody] Animal payload) => Ok(payload);
+    [ProducesResponseType(typeof(Animal), 200)]
+    [SwaggerOperation(
+        Summary = "Inheritance sample",
+        Description = "Some longer explaination",
+        OperationId = "MyCustomOpId",
+        Tags = new [] {"Inheritance", "Swagger"} )]
+    public IResult PostInheritance(
+        [SwaggerParameter(
+            Description = "Body description",
+            Required = true
+        )]
+        [FromBody] Animal payload) => Ok(payload);
 
     [HttpPost("HeaderComplexType")]
     public IResult PostHeader([FromHeader] KnownType payload) => Ok(payload);
