@@ -54,7 +54,7 @@ public class WeatherForecastController : ControllerBase
     public IResult Patch(Animal animal) => Ok(animal);
 
     private IResult Ok<T>(
-        T? o = default,
-        [CallerArgumentExpression("o")] string? name = default)
-        => Results.Ok(new { name, o, type = o?.GetType() });
+        T? value = default,
+        [CallerArgumentExpression("value")] string? name = default)
+        => Results.Ok(new { name, value, type = value?.GetType() });
 }

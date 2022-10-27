@@ -1,17 +1,11 @@
 using openapi_clients.Controllers;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System.IO;
 using System.Reflection;
 using System.Xml.XPath;
+using NJsonSchema.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers()
-    .AddNewtonsoftJson(x =>
-    {
-        x.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
-        x.SerializerSettings.TypeNameAssemblyFormatHandling = Newtonsoft.Json.TypeNameAssemblyFormatHandling.Simple;
-    });
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => 
