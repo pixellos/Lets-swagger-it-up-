@@ -1,3 +1,8 @@
 api/bin/**
 api/obj/**
 api/.vs/**
+api.Tests/bin/**
+api.Tests/obj/**
+api.Tests/.vs/**
+openapi-typescript/node_modules/**
+openapi-typescript/out/node_modules/**
