@@ -9,7 +9,7 @@ namespace openapi_clients.Controllers;
 
 internal class PolymorphicExampleSchemaFilter : ISchemaFilter
 {
-    internal const string ExamplesSchema = "examples";
+    internal const string ExamplesSchema = "x-examples";
     internal const string DefaultExamplesSchema = "Default";
     internal const string Path = $"/{ExamplesSchema}/{DefaultExamplesSchema}";
 

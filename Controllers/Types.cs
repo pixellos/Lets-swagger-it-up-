@@ -1,8 +1,6 @@
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Net;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NJsonSchema.Converters;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -31,3 +29,5 @@ public record Dog(string Bark) : Animal;
 
 /// <param name="Woof" example="Woof! Woof!">Some woof desc</param>
 public record Wolf(string Woof) : Animal;
+
+public record OkObjectResult<T>(T Value, HttpStatusCode StatusCode, string ContentType);
