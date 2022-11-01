@@ -6,3 +6,7 @@ api.Tests/obj/**
 api.Tests/.vs/**
 openapi-typescript/node_modules/**
 openapi-typescript/out/node_modules/**
+openapi-typescript/out/dist/**
+openapi-typescript/out/**
+/obj
+/openapi-csharp/out/csharp-netcore/.openapi-generator

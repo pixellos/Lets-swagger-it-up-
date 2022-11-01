@@ -31,7 +31,7 @@ public class WeatherForecastController : ControllerBase
         Summary = "Inheritance sample",
         Description = "Some longer explaination",
         OperationId = "MyCustomOpId",
-        Tags = new [] {"Inheritance", "Swagger"} )]
+        Tags = new[] { "Inheritance" })]
     public IResult PostInheritance(
         [SwaggerParameter(
             Description = "Body description",
@@ -50,7 +50,7 @@ public class WeatherForecastController : ControllerBase
 
     /// <param name="animal" example="{type: &quot;openapi_clients.Controllers.Dog&quot;, bark: &quot;&quot;}" />
     [HttpPatch("patch")]
-    [ProducesResponseType(typeof(Animal), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(OkObjectResult<Animal>), (int)HttpStatusCode.OK)]
     public IResult Patch(Animal animal) => Ok(animal);
 
     private IResult Ok<T>(

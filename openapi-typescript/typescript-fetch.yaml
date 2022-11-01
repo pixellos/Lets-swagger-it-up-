@@ -1,0 +1,5 @@
+inputSpec: ./swagger.json
+outputDir: out/
+generatorName: typescript-fetch
+platform: node
+supportsES6: true

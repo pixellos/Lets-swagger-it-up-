@@ -16,8 +16,23 @@ internal class PolymorphicExampleSchemaFilter : ISchemaFilter
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var result = new OpenApiObject();
-        var currentTypeDescriptor = context.Type.GetCustomAttributes<SwaggerSubTypeAttribute>().SingleOrDefault(x => x.SubType == context.Type);
+        var subTypes = context.Type.GetCustomAttributes<SwaggerSubTypeAttribute>();
+        var currentTypeDescriptor = subTypes.SingleOrDefault(x => x.SubType == context.Type);
         var discriminator = context.Type.GetCustomAttribute<SwaggerDiscriminatorAttribute>(inherit: true);
+        if (currentTypeDescriptor == null && discriminator is not null)
+        {
+            schema.Discriminator = new OpenApiDiscriminator()
+            {
+                PropertyName = discriminator.PropertyName,
+                Mapping = subTypes.ToDictionary(
+                   x => x.SubType.Name,
+                   x => new OpenApiReference()
+                   {
+                       Type = ReferenceType.Schema,
+                       Id = x.SubType.Name
+                   }.ReferenceV3)
+            };
+        }
         if (currentTypeDescriptor is not null && discriminator is not null)
         {
             var discriminatorValue = new OpenApiString(currentTypeDescriptor.DiscriminatorValue);
@@ -25,8 +40,10 @@ internal class PolymorphicExampleSchemaFilter : ISchemaFilter
             {
                 Type = "string",
                 Nullable = false,
-                Example = discriminatorValue
+                Example = discriminatorValue,
+                Default = discriminatorValue
             });
+            schema.Required.Add(discriminator.PropertyName);
             var value = new OpenApiObject()
             {
                 [discriminator.PropertyName] = discriminatorValue

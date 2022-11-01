@@ -54,7 +54,6 @@ if (app.Environment.IsDevelopment())
             .GetManifestResourceStream("openapi_clients.index.html"));
 }
 
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

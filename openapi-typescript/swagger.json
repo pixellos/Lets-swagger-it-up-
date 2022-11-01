@@ -1,0 +1,881 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "openapi-clients",
+    "version": "1.0"
+  },
+  "paths": {
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/post": {
+      "post": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast/post",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownType"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownType"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownType"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/Form": {
+      "post": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast/Form",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "SomeString": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "SomeString": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/Inheritance": {
+      "post": {
+        "tags": [
+          "Inheritance"
+        ],
+        "summary": "Inheritance sample",
+        "description": "Some longer explaination",
+        "operationId": "MyCustomOpId",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalOkObjectResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalOkObjectResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalOkObjectResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/HeaderComplexType": {
+      "post": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast/HeaderComplexType",
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/KnownType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/HeaderComplexTypeRce": {
+      "post": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast/HeaderComplexTypeRce",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownTypeWithRce"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownTypeWithRce"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownTypeWithRce"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnownTypeWithRce"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/HeaderString": {
+      "post": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast/HeaderString",
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast/patch": {
+      "patch": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast/patch",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Dog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Cat"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Wolf"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "discriminator",
+                  "mapping": {
+                    "Dog": "#/components/schemas/Dog",
+                    "Cat": "#/components/schemas/Cat",
+                    "Wolf": "#/components/schemas/Wolf"
+                  }
+                }
+              },
+              "examples": {
+                "Dog": {
+                  "$ref": "#/components/schemas/Dog/x-examples/Default"
+                },
+                "Cat": {
+                  "$ref": "#/components/schemas/Cat/x-examples/Default"
+                },
+                "Wolf": {
+                  "$ref": "#/components/schemas/Wolf/x-examples/Default"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalOkObjectResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalOkObjectResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalOkObjectResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Animal": {
+        "required": [
+          "discriminator"
+        ],
+        "type": "object",
+        "properties": {
+          "discriminator": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "discriminator",
+          "mapping": {
+            "Dog": "#/components/schemas/Dog",
+            "Cat": "#/components/schemas/Cat",
+            "Wolf": "#/components/schemas/Wolf"
+          }
+        }
+      },
+      "AnimalOkObjectResult": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Dog"
+              },
+              {
+                "$ref": "#/components/schemas/Cat"
+              },
+              {
+                "$ref": "#/components/schemas/Wolf"
+              }
+            ],
+            "nullable": true,
+            "discriminator": {
+              "propertyName": "discriminator",
+              "mapping": {
+                "Dog": "#/components/schemas/Dog",
+                "Cat": "#/components/schemas/Cat",
+                "Wolf": "#/components/schemas/Wolf"
+              }
+            }
+          },
+          "statusCode": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Cat": {
+        "required": [
+          "discriminator"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Animal"
+          }
+        ],
+        "properties": {
+          "meow": {
+            "type": "string",
+            "description": "Some meow description",
+            "nullable": true,
+            "example": "Meow! Meow!"
+          },
+          "discriminator": {
+            "type": "string",
+            "default": "Cat",
+            "example": "Cat"
+          }
+        },
+        "additionalProperties": false,
+        "example": {
+          "discriminator": "Cat",
+          "meow": "Meow! Meow!"
+        },
+        "x-examples": {
+          "Default": {
+            "value": {
+              "discriminator": "Cat",
+              "meow": "Meow! Meow!"
+            }
+          }
+        }
+      },
+      "Dog": {
+        "required": [
+          "discriminator"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Animal"
+          }
+        ],
+        "properties": {
+          "bark": {
+            "type": "string",
+            "description": "Some bark desc",
+            "nullable": true,
+            "example": "Bark! Bark!"
+          },
+          "discriminator": {
+            "type": "string",
+            "default": "Dog",
+            "example": "Dog"
+          }
+        },
+        "additionalProperties": false,
+        "example": {
+          "discriminator": "Dog",
+          "bark": "Bark! Bark!"
+        },
+        "x-examples": {
+          "Default": {
+            "value": {
+              "discriminator": "Dog",
+              "bark": "Bark! Bark!"
+            }
+          }
+        }
+      },
+      "HttpStatusCode": {
+        "enum": [
+          100,
+          101,
+          102,
+          103,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          206,
+          207,
+          208,
+          226,
+          300,
+          301,
+          302,
+          303,
+          304,
+          305,
+          306,
+          307,
+          308,
+          400,
+          401,
+          402,
+          403,
+          404,
+          405,
+          406,
+          407,
+          408,
+          409,
+          410,
+          411,
+          412,
+          413,
+          414,
+          415,
+          416,
+          417,
+          421,
+          422,
+          423,
+          424,
+          426,
+          428,
+          429,
+          431,
+          451,
+          500,
+          501,
+          502,
+          503,
+          504,
+          505,
+          506,
+          507,
+          508,
+          510,
+          511
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "IResult": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "KnownType": {
+        "type": "object",
+        "properties": {
+          "someString": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KnownTypeWithRce": {
+        "type": "object",
+        "properties": {
+          "someString": {
+            "type": "string",
+            "nullable": true
+          },
+          "someValueThatCanBeIntegerOrString": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Wolf": {
+        "required": [
+          "discriminator"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Animal"
+          }
+        ],
+        "properties": {
+          "woof": {
+            "type": "string",
+            "description": "Some woof desc",
+            "nullable": true,
+            "example": "Woof! Woof!"
+          },
+          "discriminator": {
+            "type": "string",
+            "default": "Wolf",
+            "example": "Wolf"
+          }
+        },
+        "additionalProperties": false,
+        "example": {
+          "discriminator": "Wolf",
+          "woof": "Woof! Woof!"
+        },
+        "x-examples": {
+          "Default": {
+            "value": {
+              "discriminator": "Wolf",
+              "woof": "Woof! Woof!"
+            }
+          }
+        }
+      }
+    }
+  }
+}
